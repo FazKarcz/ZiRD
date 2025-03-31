@@ -1,0 +1,22 @@
+Punkt 1:
+SELECT 
+    employee_id,
+    first_name,
+    last_name,
+    salary,
+    DENSE_RANK() OVER (ORDER BY salary DESC) AS ranking
+FROM 
+    employees;
+
+Punkt 2:
+SELECT 
+    employee_id,
+    first_name,
+    last_name,
+    salary,
+    RANK() OVER (ORDER BY salary DESC) AS ranking,
+    SUM(salary) OVER () AS total_salary
+FROM 
+    employees;
+
+Punkt 4:
