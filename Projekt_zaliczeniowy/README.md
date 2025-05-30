@@ -6,7 +6,7 @@ Celem projektu było zbudowanie modelu regresyjnego, który na podstawie danych 
 * XGBoost Regressor
 * Linear Regression (regresja liniowa)
 
-<h3> Wyniki modeli:
+## Wyniki modeli:
   | Model                 | MAE (średni błąd) | RMSE (błąd średniokwadratowy) | R² (dokładność) |
   | --------------------- | ----------------- | ----------------------------- | --------------- |
   | **Random Forest**     | 524 zł            | 682 zł                        | 0.839           |
