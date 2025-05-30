@@ -1,7 +1,7 @@
 # Projekt: Predykcja Ceny Wynajmu Mieszkań
 Celem projektu było zbudowanie modelu regresyjnego, który na podstawie danych o mieszkaniu (lokalizacja, liczba pokoi, powierzchnia itd.) przewiduje realistyczną cenę wynajmu.
 
-# Użyte modele:
+## Użyte modele:
 * Random Forest Regressor
 * XGBoost Regressor
 * Linear Regression (regresja liniowa)
