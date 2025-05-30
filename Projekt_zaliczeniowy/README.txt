@@ -1,4 +1,4 @@
-h1 # Projekt: Predykcja Ceny Wynajmu Mieszkań
+# Projekt: Predykcja Ceny Wynajmu Mieszkań
 Celem projektu było zbudowanie modelu regresyjnego, który na podstawie danych o mieszkaniu (lokalizacja, liczba pokoi, powierzchnia itd.) przewiduje realistyczną cenę wynajmu.
 
 # Użyte modele:
