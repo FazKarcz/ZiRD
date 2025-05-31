@@ -18,3 +18,4 @@ Najlepszy wynik osiągnęła regresja liniowa, co pokazuje, że dane są dobrze 
 Projekt wykonany w Jupyter Notebook
 
 Kompilacja komórki łączącą plik CSV z danymi API, kompiluje się około 47 min, więc uwaga.
+API key nie został umieszczony w kodzi ze względu bezpieczeństwa.
