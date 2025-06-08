@@ -1,0 +1,107 @@
+Zad 1
+
+CREATE OR REPLACE PROCEDURE dodaj_job (
+  p_job_id    IN jobs.job_id%TYPE,
+  p_job_title IN jobs.job_title%TYPE
+)
+IS
+BEGIN
+  INSERT INTO jobs (job_id, job_title)
+  VALUES (p_job_id, p_job_title);
+
+  DBMS_OUTPUT.PUT_LINE('Dodano job: ' || p_job_id || ', ' || p_job_title);
+EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Błąd przy dodawaniu: ' || SQLERRM);
+END;
+/
+
+BEGIN
+  dodaj_job('CZT_PL', 'Chat Zatrudniony PL');
+END;
+/
+
+Zad 2
+CREATE OR REPLACE PROCEDURE zmien_job_title (
+  p_job_id    IN jobs.job_id%TYPE,
+  p_new_title IN jobs.job_title%TYPE
+)
+IS
+BEGIN
+  UPDATE jobs
+  SET job_title = p_new_title
+  WHERE job_id = p_job_id;
+
+  IF SQL%ROWCOUNT = 0 THEN
+    RAISE_APPLICATION_ERROR(-20001, 'Nie zaktualizowano żadnego joba – brak takiego ID.');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('Zmieniono nazwę joba o ID: ' || p_job_id);
+  END IF;
+EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Błąd przy aktualizacji: ' || SQLERRM);
+END;
+/
+
+
+BEGIN
+  zmien_job_title('CZT_PL', 'Zmieniony Chat PL');
+END;
+/
+
+Zad 3
+
+CREATE OR REPLACE PROCEDURE usun_job (
+  p_job_id IN jobs.job_id%TYPE
+)
+IS
+BEGIN
+  DELETE FROM jobs
+  WHERE job_id = p_job_id;
+
+  IF SQL%ROWCOUNT = 0 THEN
+    RAISE_APPLICATION_ERROR(-20002, 'Nie usunięto żadnego joba – brak takiego ID.');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('Usunięto joba o ID: ' || p_job_id);
+  END IF;
+EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Błąd przy usuwaniu: ' || SQLERRM);
+END;
+/
+
+BEGIN
+  usun_job('CZT_PL');
+END;
+/
+
+Zad 4
+CREATE OR REPLACE PROCEDURE pobierz_pracownika (
+  p_emp_id    IN  employees.employee_id%TYPE,
+  p_nazwisko  OUT employees.last_name%TYPE,
+  p_zarobki   OUT employees.salary%TYPE
+)
+IS
+BEGIN
+  SELECT last_name, salary
+  INTO p_nazwisko, p_zarobki
+  FROM employees
+  WHERE employee_id = p_emp_id;
+  
+  DBMS_OUTPUT.PUT_LINE('Nazwisko: ' || p_nazwisko || ', Pensja: ' || p_zarobki);
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    DBMS_OUTPUT.PUT_LINE('Brak pracownika o ID: ' || p_emp_id);
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Błąd: ' || SQLERRM);
+END;
+/
+
+DECLARE
+  nazwisko employees.last_name%TYPE;
+  pensja   employees.salary%TYPE;
+BEGIN
+  pobierz_pracownika(100, nazwisko, pensja);
+  -- Możesz też coś zrobić z tymi zmiennymi tutaj
+END;
+/
