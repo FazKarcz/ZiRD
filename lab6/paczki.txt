@@ -1,0 +1,16 @@
+Zad 1
+
+CREATE OR REPLACE PACKAGE regions_pkg IS
+
+  PROCEDURE add_region(p_region_id IN NUMBER, p_region_name IN VARCHAR2);
+
+  FUNCTION get_region(p_region_id IN NUMBER) RETURN VARCHAR2;
+
+  PROCEDURE update_region(p_region_id IN NUMBER, p_region_name IN VARCHAR2);
+
+  PROCEDURE delete_region(p_region_id IN NUMBER);
+
+  FUNCTION list_regions(p_name_filter IN VARCHAR2 DEFAULT NULL) RETURN SYS_REFCURSOR;
+
+END regions_pkg;
+/

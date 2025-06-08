@@ -1,0 +1,75 @@
+Zad 1
+CREATE OR REPLACE FUNCTION daj_nazwe_pracy (
+  p_job_id IN jobs.job_id%TYPE
+) RETURN jobs.job_title%TYPE
+IS
+  v_nazwa jobs.job_title%TYPE;
+BEGIN
+  SELECT job_title
+  INTO v_nazwa
+  FROM jobs
+  WHERE job_id = p_job_id;
+
+  RETURN v_nazwa;
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    RAISE_APPLICATION_ERROR(-20003, 'Nie znaleziono pracy o podanym ID.');
+  WHEN OTHERS THEN
+    RAISE_APPLICATION_ERROR(-20004, 'Błąd: ' || SQLERRM);
+END;
+/
+
+SELECT daj_nazwe_pracy('IT_PROG') FROM dual;
+
+Zad 2
+CREATE OR REPLACE FUNCTION get_annual_salary(p_employee_id IN NUMBER) RETURN NUMBER IS
+  v_salary employees.salary%TYPE;
+  v_commission_pct employees.commission_pct%TYPE;
+BEGIN
+  SELECT salary, NVL(commission_pct, 0) INTO v_salary, v_commission_pct
+  FROM employees
+  WHERE employee_id = p_employee_id;
+
+  RETURN v_salary * 12 + v_salary * v_commission_pct;
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    RAISE_APPLICATION_ERROR(-20002, 'Pracownik o podanym ID nie istnieje.');
+END;
+/
+
+Zad 3
+CREATE OR REPLACE FUNCTION get_area_code(p_phone IN VARCHAR2) RETURN VARCHAR2 IS
+  v_area_code VARCHAR2(10);
+BEGIN
+  -- Wyciąga wszystko co jest pomiędzy nawiasami ()
+  v_area_code := REGEXP_SUBSTR(p_phone, '\(([^)]+)\)', 1, 1, NULL, 1);
+
+  IF v_area_code IS NULL THEN
+    RAISE_APPLICATION_ERROR(-20003, 'Nie znaleziono numeru kierunkowego w podanym numerze telefonu.');
+  END IF;
+
+  RETURN v_area_code;
+END;
+/
+
+Zad 4
+CREATE OR REPLACE FUNCTION capitalize_first_last(p_str IN VARCHAR2) RETURN VARCHAR2 IS
+  v_len NUMBER := LENGTH(p_str);
+  v_result VARCHAR2(4000);
+BEGIN
+  IF p_str IS NULL OR v_len = 0 THEN
+    RETURN p_str;
+  ELSIF v_len = 1 THEN
+    RETURN UPPER(p_str);
+  ELSE
+    v_result := UPPER(SUBSTR(p_str, 1, 1)) ||
+                LOWER(SUBSTR(p_str, 2, v_len - 2)) ||
+                UPPER(SUBSTR(p_str, v_len, 1));
+    RETURN v_result;
+  END IF;
+END;
+/
+
+Zad 5
+
+
